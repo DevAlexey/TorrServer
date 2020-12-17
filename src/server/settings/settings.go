@@ -3,6 +3,7 @@ package settings
 var (
 	tdb  *TDB
 	Path string
+	PlaylistDir string
 )
 
 func InitSets(readOnly bool) {

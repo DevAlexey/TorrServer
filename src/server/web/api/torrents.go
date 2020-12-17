@@ -84,6 +84,8 @@ func addTorrent(req torrReqJS, c *gin.Context) {
 		if req.SaveToDB {
 			torr.SaveTorrentToDB(tor)
 		}
+
+		savePlaylist(tor, c)
 	}()
 
 	c.JSON(200, tor.Status())
@@ -109,6 +111,7 @@ func remTorrent(req torrReqJS, c *gin.Context) {
 		c.AbortWithError(http.StatusBadRequest, errors.New("hash is empty"))
 		return
 	}
+	delPlaylist(req.Hash)
 	torr.RemTorrent(req.Hash)
 	c.Status(200)
 }
@@ -131,6 +134,7 @@ func dropTorrent(req torrReqJS, c *gin.Context) {
 		c.AbortWithError(http.StatusBadRequest, errors.New("hash is empty"))
 		return
 	}
+	delPlaylist(req.Hash)
 	torr.DropTorrent(req.Hash)
 	c.Status(200)
 }

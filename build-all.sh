@@ -22,8 +22,8 @@ PLATFORMS_ARM="linux"
 
 type setopt >/dev/null 2>&1
 
-export GOPATH="${PWD}"
-GOBIN="/usr/local/go/bin/go"
+export GOPATH="$(go env GOPATH):${PWD}"
+GOBIN=$(which go)
 
 go run build_web.go
 

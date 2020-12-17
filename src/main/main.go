@@ -19,6 +19,7 @@ type args struct {
 	Port     string `arg:"-p" help:"web server port"`
 	Path     string `arg:"-d" help:"database path"`
 	Add      string `arg:"-a" help:"add torrent link and exit"`
+	PlaylistDir string   `arg:"-l" help:"playlists directory path"`
 	RDB      bool   `arg:"-r" help:"start in read-only DB mode"`
 	DontKill bool   `arg:"-k" help:"dont kill program on signal"`
 }
@@ -44,6 +45,7 @@ func main() {
 		add()
 	}
 	settings.Path = params.Path
+	settings.PlaylistDir = params.PlaylistDir
 	Preconfig(params.DontKill)
 
 	server.Start(params.Port, params.RDB)

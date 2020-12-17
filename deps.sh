@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GOPATH="${PWD}"
+export GOPATH="$(go env GOPATH):${PWD}"
 
 go get -v github.com/alexflint/go-arg
 go get -v github.com/anacrolix/dht
