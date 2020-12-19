@@ -1,20 +1,23 @@
 #!/bin/bash
 
-PLATFORMS=""
-PLATFORMS="$PLATFORMS linux/amd64 linux/386"
-PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
-PLATFORMS="$PLATFORMS darwin/amd64"              # amd64 only as of go1.5
-PLATFORMS="$PLATFORMS freebsd/amd64"
-PLATFORMS="$PLATFORMS linux/mips linux/mipsle linux/mips64 linux/mips64le" # experimental in go1.6
-#PLATFORMS="$PLATFORMS linux/arm linux/arm64"
-#PLATFORMS="$PLATFORMS linux/ppc64 linux/ppc64le aix/ppc"
-# PLATFORMS="$PLATFORMS netbsd/amd64" # amd64 only as of go1.6
-# PLATFORMS="$PLATFORMS openbsd/amd64" # amd64 only as of go1.6
-# PLATFORMS="$PLATFORMS dragonfly/amd64" # amd64 only as of go1.5
-# PLATFORMS="$PLATFORMS plan9/amd64 plan9/386" # as of go1.4
-# PLATFORMS="$PLATFORMS solaris/amd64" # as of go1.3
+if [[ -z "${PLATFORMS}" ]]; then
+  PLATFORMS=""
+  PLATFORMS="$PLATFORMS linux/amd64 linux/386"
+  PLATFORMS="$PLATFORMS windows/amd64 windows/386" # arm compilation not available for Windows
+  PLATFORMS="$PLATFORMS darwin/amd64"              # amd64 only as of go1.5
+  PLATFORMS="$PLATFORMS freebsd/amd64"
+  PLATFORMS="$PLATFORMS linux/mips linux/mipsle linux/mips64 linux/mips64le" # experimental in go1.6
+  #PLATFORMS="$PLATFORMS linux/arm linux/arm64"
+  #PLATFORMS="$PLATFORMS linux/ppc64 linux/ppc64le aix/ppc"
+  # PLATFORMS="$PLATFORMS netbsd/amd64" # amd64 only as of go1.6
+  # PLATFORMS="$PLATFORMS openbsd/amd64" # amd64 only as of go1.6
+  # PLATFORMS="$PLATFORMS dragonfly/amd64" # amd64 only as of go1.5
+  # PLATFORMS="$PLATFORMS plan9/amd64 plan9/386" # as of go1.4
+  # PLATFORMS="$PLATFORMS solaris/amd64" # as of go1.3
 
-PLATFORMS_ARM="linux"
+  PLATFORMS_ARM="linux"
+  MOBILE=true
+fi
 
 ##############################################################
 # Shouldn't really need to modify anything below this line.  #
@@ -72,6 +75,10 @@ if [[ "${FAILURES}" != "" ]]; then
   echo ""
   echo "${SCRIPT_NAME} failed on: ${FAILURES}"
   exit 1
+fi
+
+if [ !$variable ]; then
+  exit 0
 fi
 
 export CGO_ENABLED=1
