@@ -1,8 +1,9 @@
 version: "3.4"
 services:
-  torr-server-dlna:
+  torrserver-dlna:
+    image: devalexey/torrserver-dlna
     network_mode: host
-    container_name: torr-server-dlna
+    container_name: torrserver-dlna
     build:
       context: ../
       dockerfile: dockerized/Dockerfile

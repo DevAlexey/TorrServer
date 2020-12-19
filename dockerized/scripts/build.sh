@@ -1,10 +1,11 @@
 #!/bin/bash
+set -e
 
 ./deps.sh
 PLATFORMS=$(go env GOHOSTOS)/$(go env GOHOSTARCH) ./build-all.sh
 
-apt update
-apt install -y git uuid-dev curl
+sudo apt update
+sudo apt install -y git uuid-dev curl build-essential
 
 git clone https://github.com/clark15b/xupnpd2.git
 cd xupnpd2

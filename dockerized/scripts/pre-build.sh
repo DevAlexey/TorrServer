@@ -1,6 +1,6 @@
 #!/bin/bash
+set -e
 
-wget https://storage.googleapis.com/golang/getgo/installer_linux
-chmod +x installer_linux
-./installer_linux
-source ~/.bash_profile
+sudo apt update && sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:longsleep/golang-backports
+sudo apt install -y golang-1.15 golang-go

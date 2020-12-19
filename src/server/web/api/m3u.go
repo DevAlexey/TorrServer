@@ -152,11 +152,13 @@ func savePlaylist(tor *torr.Torrent, c *gin.Context) int {
 func delPlaylist(hash string) int {
 	if sets.PlaylistDir != "" {
 		tor := torr.GetTorrent(hash)
-		playlistName := tor.Name()+".m3u"
-		e := os.Remove(sets.PlaylistDir+"/"+playlistName)
-		if e != nil {
-			fmt.Println(e)
-			return 1
+		if tor.GotInfo() {
+			playlistName := tor.Name()+".m3u"
+			e := os.Remove(sets.PlaylistDir+"/"+playlistName)
+			if e != nil {
+				fmt.Println(e)
+				return 1
+			}
 		}
 	}
 	return 0
