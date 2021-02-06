@@ -4,6 +4,7 @@ var (
 	tdb      *TDB
 	Path     string
 	ReadOnly bool
+	PlaylistDir string
 )
 
 func InitSets(readOnly bool) {

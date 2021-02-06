@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  torrserver-dlna:
+    image: devalexey/torrserver-dlna
+    network_mode: host
+    container_name: torrserver-dlna
+    build:
+      context: ../
+      dockerfile: dockerized/Dockerfile
+    restart: always
+#    command: bash
+#    stdin_open: true
+#    tty: true

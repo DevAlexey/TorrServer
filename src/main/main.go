@@ -19,6 +19,7 @@ type args struct {
 	Port     string `arg:"-p" help:"web server port"`
 	Path     string `arg:"-d" help:"database path"`
 	LogPath  string `arg:"-l" help:"log path"`
+	PlaylistDir string   `arg:"-x" help:"playlists directory path"`
 	RDB      bool   `arg:"-r" help:"start in read-only DB mode"`
 	DontKill bool   `arg:"-k" help:"dont kill program on signal"`
 	UI       bool   `arg:"-u" help:"run page torrserver in browser"`
@@ -45,6 +46,7 @@ func main() {
 	log.Init(params.LogPath)
 
 	dnsResolve()
+	settings.PlaylistDir = params.PlaylistDir
 	Preconfig(params.DontKill)
 
 	if params.UI {

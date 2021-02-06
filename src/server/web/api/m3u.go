@@ -1,6 +1,7 @@
 package api
 
 import (
+	"os"
 	"bytes"
 	"fmt"
 	"net/http"
@@ -122,4 +123,44 @@ func searchLastPlayed(tor *state.TorrentStatus) int {
 	}
 
 	return -1
+}
+
+func savePlaylist(tor *torr.Torrent, c *gin.Context) int {
+	if sets.PlaylistDir != "" {
+		playlistName := tor.Name()+".m3u"
+		host := "http://" + c.Request.Host
+		playlist := "#EXTM3U\n" + getM3uList(tor.Status(), host, false)
+
+		_ = os.MkdirAll(sets.PlaylistDir, os.ModePerm)
+		f, err := os.Create(sets.PlaylistDir+"/"+playlistName)
+
+		if err != nil {
+			fmt.Println(err)
+			return 1
+		}
+		defer f.Close()
+
+		_, err2 := f.WriteString(playlist)
+
+		if err2 != nil {
+			fmt.Println(err2)
+			return 2
+		}
+	}
+	return 0
+}
+
+func delPlaylist(hash string) int {
+	if sets.PlaylistDir != "" {
+		tor := torr.GetTorrent(hash)
+		if tor.GotInfo() {
+			playlistName := tor.Name()+".m3u"
+			e := os.Remove(sets.PlaylistDir+"/"+playlistName)
+			if e != nil {
+				fmt.Println(e)
+				return 1
+			}
+		}
+	}
+	return 0
 }
